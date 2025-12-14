@@ -1,0 +1,134 @@
+<form
+  name="submit-sunscreen"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  class="submit-form"
+>
+  <input type="hidden" name="form-name" value="submit-sunscreen" />
+  <p hidden>
+    <label>Don’t fill this out: <input name="bot-field" /></label>
+  </p>
+
+  <!-- =====================
+       IDENTITY
+       ===================== -->
+  <h2>Sunscreen Identity</h2>
+
+  <label>
+    Brand *
+    <input type="text" name="brand" required />
+  </label>
+
+  <label>
+    Product Name *
+    <input type="text" name="product" required />
+  </label>
+
+  <!-- =====================
+       SUN PROTECTION BASICS
+       ===================== -->
+  <h2>Sun Protection</h2>
+
+  <label>
+    SPF
+    <input type="text" name="spf" placeholder="e.g. 30, 50+" />
+  </label>
+
+  <label>
+    PA Rating
+    <select name="pa">
+      <option value="">Unknown</option>
+      <option>PA+</option>
+      <option>PA++</option>
+      <option>PA+++</option>
+      <option>PA++++</option>
+    </select>
+  </label>
+
+  <label>
+    Country / Market *
+    <select name="country" required>
+      <option value="">Select</option>
+      <option>Korea</option>
+      <option>Japan</option>
+      <option>EU</option>
+      <option>US</option>
+      <option>Australia</option>
+      <option>Other</option>
+      <option>Unknown</option>
+    </select>
+  </label>
+
+  <label>
+    Water Resistance
+    <select name="water_resistant">
+      <option value="">Unknown</option>
+      <option>None</option>
+      <option>40 minutes</option>
+      <option>80 minutes</option>
+      <option>Very water resistant</option>
+    </select>
+  </label>
+
+  <!-- =====================
+       INGREDIENTS
+       ===================== -->
+  <h2>Ingredients</h2>
+
+  <label>
+    Ingredients (INCI) *
+    <textarea
+      name="ingredients"
+      rows="6"
+      required
+      placeholder="Paste the full ingredient list as shown on the product or official site."
+    ></textarea>
+  </label>
+
+  <!-- =====================
+       OPTIONAL SUPPORTING INFO
+       ===================== -->
+  <h2>Additional Info (Optional)</h2>
+
+  <label>
+    UV Filters (if known)
+    <textarea
+      name="filters"
+      rows="2"
+      placeholder="e.g. Uvinul A Plus, Tinosorb M"
+    ></textarea>
+  </label>
+
+  <label>
+    Fragrance Disclosure
+    <select name="fragrance_disclosure">
+      <option value="">Unknown</option>
+      <option>None stated</option>
+      <option>Fragrance listed</option>
+    </select>
+  </label>
+
+  <label>
+    Source URL
+    <input
+      type="url"
+      name="source_url"
+      placeholder="Official product page or ingredient source"
+    />
+  </label>
+
+  <label>
+    Notes
+    <textarea
+      name="notes"
+      rows="3"
+      placeholder="Reformulation notes, regional variants, etc."
+    ></textarea>
+  </label>
+
+  <!-- =====================
+       SUBMIT
+       ===================== -->
+  <button type="submit">Submit Sunscreen</button>
+</form>
