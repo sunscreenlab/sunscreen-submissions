@@ -4,6 +4,9 @@ on:
   issues:
     types: [labeled]
 
+  permissions:
+  issues: write   # 👈 ADD THIS HERE
+
 jobs:
   process-approved-sunscreen:
     if: github.event.label.name == 'approved'
