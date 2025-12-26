@@ -5,7 +5,7 @@ on:
     types: [labeled]
 
   permissions:
-  issues: write   # 👈 ADD THIS HERE
+  issues: write   
 
 jobs:
   process-approved-sunscreen:
