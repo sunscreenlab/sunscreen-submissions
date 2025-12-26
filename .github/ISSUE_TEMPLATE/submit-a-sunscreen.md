@@ -1,33 +1,35 @@
 ---
 name: Submit a sunscreen
 about: Submit a sunscreen for review by the Sunscreen DNA project.
-title: 'title: "Brand – Product name"'
-labels: new
-assignees: ''
+title: "Brand – Product name"
+labels: sunscreen-submission
+assignees: ""
+---
+
+⚠️ **Please update the issue title to:**  
+**Brand – Product name**
+
+_Submissions are reviewed manually and may be edited for accuracy, clarity, and consistency before publication._
 
 ---
 
-⚠️ Please update the issue title to: **Brand – Product name**
+## Sunscreen submission (for review & publication)
 
-<i>Please fill out as much information as you can. Submissions are reviewed manually.</i>
+Please fill out as much as you can below.  
+This section is used to prepare the sunscreen for inclusion in the database.
 
-### Brand name
-(e.g., La Roche-Posay)
-
-### Product name
-(e.g., Anthelios Invisible Fluid SPF 50+)
-
-### Region sold
-(US / EU / UK / KR / JP / AU / Other)
-
-### UV filters (INCI names)
-Please list the UV filters exactly as they appear on the ingredient list.
-
-### Source for ingredient list
-Link to the official product page, retailer, or published INCI.
-
-### SPF / PA / UVA rating (if known)
-(e.g., SPF 50+, PA++++, UVA-PF 46)
-
-### Notes (optional)
-Reformulations, tint, mineral/chemical/hybrid, or anything else relevant.
+```yaml
+brand:
+product_name:
+regions_sold:
+  -
+spf:
+pa_rating:
+uvas_rating:
+sunscreen_type: chemical | mineral | hybrid
+uv_filters:
+  -
+source_url:
+water_resistant:
+fragrance:
+notes:
