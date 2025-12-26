@@ -4,8 +4,8 @@ on:
   issues:
     types: [labeled]
 
-  permissions:
-  issues: write   
+permissions:
+  issues: write
 
 jobs:
   process-approved-sunscreen:
