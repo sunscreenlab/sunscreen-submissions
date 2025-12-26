@@ -22,6 +22,8 @@ This section is used to prepare the sunscreen for inclusion in the database.
 brand:
 product_name:
   -
+ingredients_inci:
+  -
 spf:
 pa_rating:
 uvas_rating:
