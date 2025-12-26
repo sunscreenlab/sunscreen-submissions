@@ -21,15 +21,12 @@ This section is used to prepare the sunscreen for inclusion in the database.
 ```yaml
 brand:
 product_name:
-regions_sold:
   -
 spf:
 pa_rating:
 uvas_rating:
-sunscreen_type: chemical | mineral | hybrid
 uv_filters:
   -
 source_url:
 water_resistant:
-fragrance:
 notes:
