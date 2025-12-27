@@ -16,7 +16,7 @@ _Submissions are reviewed manually and may be edited for accuracy, clarity, and 
 ## Sunscreen submission (for review & publication)
 
 Please fill out as much as you can below.  
-This section is used to prepare the sunscreen for inclusion in the database.
+If you're unsure about a field, it's okay to leave it blank.
 
 ```yaml
 brand:
@@ -28,6 +28,7 @@ spf:
 pa_rating:
 uvas_rating:
 uv_filters:
+korean:
   -
 source_url:
 water_resistant:
