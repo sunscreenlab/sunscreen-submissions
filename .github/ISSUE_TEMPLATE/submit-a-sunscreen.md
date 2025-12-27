@@ -27,7 +27,6 @@ ingredients_inci:
 spf:
 pa_rating:
 uvas_rating:
-uv_filters:
 korean:  # optional — will be set during review
   -
 source_url:
