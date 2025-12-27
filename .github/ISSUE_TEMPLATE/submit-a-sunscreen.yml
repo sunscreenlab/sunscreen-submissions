@@ -26,21 +26,6 @@ body:
     validations:
       required: true
 
-  - type: dropdown
-    id: regions_sold
-    attributes:
-      label: Regions where this sunscreen is sold
-      multiple: true
-      options:
-        - KR
-        - US
-        - EU
-        - JP
-        - AU
-        - Other
-    validations:
-      required: true
-
   - type: input
     id: spf
     attributes:
