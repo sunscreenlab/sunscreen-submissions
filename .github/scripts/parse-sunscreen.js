@@ -1,82 +1,92 @@
 import yaml from "js-yaml";
 
-export function extractYamlBlock(issueBody) {
-  const match = issueBody.match(/```yaml([\s\S]*?)```/);
+/**
+ * Extract the fenced ```yaml block from the issue body
+ */
+function extractYamlBlock(body) {
+  const match = body.match(/```yaml([\s\S]*?)```/i);
   if (!match) {
-    throw new Error("No YAML block found in issue body.");
+    throw new Error("No fenced YAML block found in issue body.");
   }
   return match[1];
 }
 
-export function parseYamlBlock(yamlText) {
-  return yaml.load(yamlText);
-}
-
-export function validateRequiredFields(data) {
-  const required = ["brand", "product_name", "regions_sold"];
-  const missing = required.filter(
-    (field) => !data[field] || data[field].length === 0
-  );
-  if (missing.length) {
-    throw new Error(`Missing required fields: ${missing.join(", ")}`);
-  }
-}
-
-export function normalizeRegions(regions) {
-  const map = {
-    us: "US",
-    usa: "US",
-    kr: "KR",
-    korea: "KR",
-    eu: "EU",
-    jp: "JP",
-    japan: "JP",
-    au: "AU",
-    australia: "AU"
-  };
-
-  return regions.map((r) => map[r.toLowerCase()] ?? r.toUpperCase());
-}
-
-export function calculateSunscreenType(filters = []) {
-  const inorganic = ["zinc oxide", "titanium dioxide"];
-
-  const hasInorganic = filters.some(f =>
-    inorganic.some(i => f.toLowerCase().includes(i))
-  );
-  const hasOrganic = filters.length > 0 && !hasInorganic;
-
-  if (hasInorganic && hasOrganic) return "hybrid";
-  if (hasInorganic) return "mineral";
-  if (hasOrganic) return "chemical";
+/**
+ * Normalize yes/no values to boolean or null
+ */
+function normalizeYesNo(value) {
+  if (!value) return null;
+  const v = String(value).trim().toLowerCase();
+  if (v === "yes" || v === "true") return true;
+  if (v === "no" || v === "false") return false;
   return null;
 }
 
-export function detectFragrance(ingredientsText = "") {
-  const fragranceKeywords = [
-    "fragrance",
-    "parfum",
-    "aroma",
-    "essential oil"
-  ];
-  return fragranceKeywords.some(k =>
-    ingredientsText.toLowerCase().includes(k)
-  )
-    ? "present"
-    : "none stated";
+/**
+ * Validate required fields
+ */
+function validateRequired(data) {
+  const required = ["brand", "product_name", "regions_sold"];
+  const missing = required.filter(
+    (f) =>
+      !data[f] ||
+      (Array.isArray(data[f]) && data[f].length === 0)
+  );
+
+  if (missing.length) {
+    throw new Error(
+      `Missing required fields: ${missing.join(", ")}`
+    );
+  }
 }
 
-export function buildCanonicalObject(raw) {
+/**
+ * Build canonical sunscreen object (dry run)
+ */
+function buildCanonical(data) {
   return {
-    brand: raw.brand,
-    product_name: raw.product_name,
-    spf: raw.spf ? Number(String(raw.spf).replace(/\D/g, "")) : null,
-    pa_rating: raw.pa_rating ?? null,
-    sunscreen_type: calculateSunscreenType(raw.uv_filters || []),
-    uv_filters: raw.uv_filters || [],
-    regions_sold: normalizeRegions(raw.regions_sold || []),
-    fragrance: detectFragrance(raw.notes || ""),
-    source_url: raw.source_url ?? null,
-    notes: raw.notes ?? ""
+    brand: data.brand ?? null,
+    product_name: data.product_name ?? null,
+
+    korean: normalizeYesNo(data.korean),
+
+    regions_sold: Array.isArray(data.regions_sold)
+      ? data.regions_sold.map((r) => r.toUpperCase())
+      : [],
+
+    spf: data.spf
+      ? Number(String(data.spf).replace(/\D/g, "")) || null
+      : null,
+
+    pa_rating: data.pa_rating ?? null,
+    uvas_rating: data.uvas_rating ?? null,
+
+    uv_filters: Array.isArray(data.uv_filters)
+      ? data.uv_filters.filter(Boolean)
+      : [],
+
+    ingredients_inci: data.ingredients_inci ?? null,
+    source_url: data.source_url ?? null,
+    notes: data.notes ?? null,
   };
+}
+
+/**
+ * Entry point when run by GitHub Actions
+ */
+if (process.env.ISSUE_BODY) {
+  try {
+    const yamlText = extractYamlBlock(process.env.ISSUE_BODY);
+    const parsed = yaml.load(yamlText);
+
+    validateRequired(parsed);
+
+    const canonical = buildCanonical(parsed);
+
+    console.log("✅ Parsed sunscreen (dry run):");
+    console.log(JSON.stringify(canonical, null, 2));
+  } catch (err) {
+    console.error("❌ Parsing failed:", err.message);
+    process.exit(1);
+  }
 }
