@@ -68,9 +68,9 @@ body:
       label: Is this a Korean product?
       description: If you’re unsure, select “Unsure”.
       options:
-        - Unsure
-        - Yes
-        - No
+        - "Unsure"
+        - "Yes"
+        - "No"
 
   - type: input
     id: source_url
