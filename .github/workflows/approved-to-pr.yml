@@ -33,12 +33,17 @@ jobs:
           script: |
             const issue = context.payload.issue;
 
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issue.number,
-              body: "✅ **Submission approved**\n\n" +
-                    "This sunscreen has been marked as **approved**.\n" +
-                    "Automation has detected the approval and will process it shortly.\n\n" +
-                    "_(Draft processing only — no data has been published yet.)_"
-            });
+            async function run() {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body:
+                  "✅ **Submission approved**\n\n" +
+                  "This sunscreen has been marked as **approved**.\n" +
+                  "Automation has detected the approval and will process it shortly.\n\n" +
+                  "_(Draft processing only — no data has been published yet.)_"
+              });
+            }
+
+            await run();
