@@ -22,11 +22,11 @@ If you're unsure about a field, it's okay to leave it blank.
 brand:
 product_name:
 
-ingredients_inci:
+ingredients:
 
 spf:
 pa_rating:
-uvas_rating:
+uva_rating (EU):
 korean:  # optional — will be set during review
 
 source_url:
