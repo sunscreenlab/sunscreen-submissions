@@ -56,7 +56,7 @@ function detectUvFilters(ingredients) {
  * Validate required fields
  */
 function validateRequired(data) {
-  const required = ["brand", "product_name", "regions_sold"];
+  const required = ["brand", "product_name"];
   const missing = required.filter(
     (f) =>
       !data[f] ||
@@ -81,10 +81,6 @@ function buildCanonical(data) {
     product_name: data.product_name ?? null,
 
     korean: normalizeYesNo(data.korean),
-
-    regions_sold: Array.isArray(data.regions_sold)
-      ? data.regions_sold.map((r) => r.toUpperCase())
-      : [],
 
     spf: data.spf
       ? Number(String(data.spf).replace(/\D/g, "")) || null
