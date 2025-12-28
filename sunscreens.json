@@ -1,0 +1,69 @@
+[
+  {
+    "id": "house-of-hur-tropical-dew-sun-cream",
+    "brand": "House of Hur",
+    "product": "Tropical Dew Sun Cream",
+    "type": "chemical",
+    "spf": 50,
+    "pa": "PA++++",
+    "korean": true,
+    "filters": [
+      {
+        "name": "diethylamino hydroxybenzoyl hexyl benzoate",
+        "category": "chemical"
+      },
+      {
+        "name": "methylene bis-benzotriazolyl tetramethylbutylphenol",
+        "category": "chemical"
+      },
+      {
+        "name": "diethylhexyl butamido triazone",
+        "category": "chemical"
+      }
+    ],
+    "ingredients": [
+      "shell\nWater",
+      "Dibutyl Adipate",
+      "Propanediol",
+      "Diethylamino Hydroxybenzoyl Hexyl Benzoate",
+      "Diisopropyl Sebacate",
+      "Polymethylsilsesquioxane",
+      "Ethylhexyl Triazone",
+      "Methylene Bis-Benzotriazolyl Tetramethylbutylphenol",
+      "Butyloctyl Salicylate",
+      "Caprylyl Methicone",
+      "Diethylhexyl Butamido Triazone",
+      "Glycerin",
+      "1",
+      "2-Hexanediol",
+      "Butylene Glycol",
+      "Caprylic/Capric Triglyceride",
+      "Pentylene Glycol",
+      "Behenyl Alcohol",
+      "Poly C10-30 Alkyl Acrylate",
+      "Polyglyceryl-3 Methylglucose Distearate",
+      "Hydroxyethyl Urea",
+      "Decyl Glucoside",
+      "Tromethamine",
+      "Acrylates/C10-30 Alkyl Acrylate Crosspolymer",
+      "Hippophae Rhamnoides Oil",
+      "Polyacrylic Acid",
+      "Polyacrylate Crosspolymer-6",
+      "Sodium Stearoyl Glutamate",
+      "Ethylhexylglycerin",
+      "Cyanocobalamin",
+      "Xanthan Gum",
+      "Ananas Sativus (Pineapple) Fruit Extract",
+      "Carica Papaya (Papaya) Fruit Extract",
+      "Garcinia Mangostana Peel Extract",
+      "Mangifera Indica (Mango) Fruit Extract",
+      "Morinda Citrifolia Extract",
+      "Musa Sapientum (Banana) Fruit Extract",
+      "Nephelium Lappaceum Branch/Fruit/Leaf Extract",
+      "Psidium Guajava Fruit Extract",
+      "Tocopherol"
+    ],
+    "source_url": "https://oliveyoung.com/product/detail?prdtNo=GA251034462",
+    "notes": "_No response_"
+  }
+]
