@@ -34,12 +34,29 @@ jobs:
           npm install
           node parse-sunscreen.js
 
-      # 👇 NEW STEP (log-only, safe)
       - name: Generate sunscreen ID (log only)
         run: node scripts/generateSunscreenEntry.js
         env:
           SUNSCREEN_BRAND: ${{ env.SUNSCREEN_BRAND }}
           SUNSCREEN_PRODUCT: ${{ env.SUNSCREEN_PRODUCT }}
+
+      # ✅ NEW: write to sunscreens.json (can fail on duplicate)
+      - name: Write sunscreen to JSON
+        run: node scripts/write-sunscreen-json.js
+
+      # 🚨 NEW: notify only if something failed
+      - name: Notify on duplicate rejection
+        if: failure()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments \
+            -d '{
+              "body": "❌ **Duplicate sunscreen detected**\n\nAn entry with this sunscreen ID already exists in `sunscreens.json`.\n\nNo data was changed. This submission requires manual review to determine whether it is a true duplicate or needs disambiguation."
+            }'
 
       - name: Post acknowledgement comment
         env:
