@@ -89,16 +89,18 @@ function deriveSunscreenType(uvFilters) {
   return null;
 }
 
-
 /**
  * Build canonical sunscreen object (dry run)
  */
 function buildCanonical(data) {
   const uvFilters = detectUvFilters(data.ingredients_inci);
+  const sunscreenType = deriveSunscreenType(uvFilters);
 
   return {
     brand: data.brand,
     product_name: data.product_name,
+
+    sunscreen_type: sunscreenType, // mineral | chemical | hybrid | null
 
     spf: data.spf
       ? Number(data.spf.replace(/\D/g, "")) || null
@@ -115,6 +117,7 @@ function buildCanonical(data) {
     notes: data.notes || null
   };
 }
+
 
 /**
  * Entry point (GitHub Actions)
