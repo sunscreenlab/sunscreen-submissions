@@ -31,6 +31,18 @@ function normalizeYesNo(value) {
 }
 
 /**
+ * Split INCI ingredient string into array
+ */
+function splitIngredients(ingredients) {
+  if (!ingredients) return [];
+
+  return ingredients
+    .split(",")
+    .map(i => i.trim())
+    .filter(Boolean);
+}
+
+/**
  * Detect UV filters from ingredient list
  */
 function detectUvFilters(ingredients) {
@@ -48,8 +60,8 @@ function detectUvFilters(ingredients) {
     for (const name of names) {
       if (text.includes(name.toLowerCase())) {
         detected.push({
-          inci: filter.inci,
-          type: filter.type
+          name: filter.inci,
+          category: filter.type
         });
         break;
       }
@@ -79,8 +91,8 @@ function validateRequired(data) {
 function deriveSunscreenType(uvFilters) {
   if (!uvFilters || uvFilters.length === 0) return null;
 
-  const hasMineral = uvFilters.some(f => f.type === "mineral");
-  const hasChemical = uvFilters.some(f => f.type === "chemical");
+  const hasMineral = uvFilters.some(f => f.category === "mineral");
+  const hasChemical = uvFilters.some(f => f.category === "chemical");
 
   if (hasMineral && hasChemical) return "hybrid";
   if (hasMineral) return "mineral";
@@ -98,26 +110,27 @@ function buildCanonical(data) {
 
   return {
     brand: data.brand,
-    product_name: data.product_name,
+    product: data.product_name,
 
-    sunscreen_type: sunscreenType, // mineral | chemical | hybrid | null
+    type: sunscreenType, // mineral | chemical | hybrid | null
 
     spf: data.spf
       ? Number(data.spf.replace(/\D/g, "")) || null
       : null,
 
-    pa_rating: data.pa_rating || null,
+    pa: data.pa_rating || null,
 
     korean: normalizeYesNo(data.korean),
 
-    uv_filters: uvFilters,
+    filters: uvFilters,
 
-    ingredients_inci: data.ingredients_inci,
+    ingredients: splitIngredients(data.ingredients_inci),
+
+    // editorial-only (kept out of site JSON later)
     source_url: data.source_url || null,
     notes: data.notes || null
   };
 }
-
 
 /**
  * Entry point (GitHub Actions)
@@ -141,7 +154,7 @@ if (process.env.ISSUE_BODY) {
 
     const canonical = buildCanonical(parsed);
 
-    console.log("✅ Parsed sunscreen (dry run):");
+    console.log("🧪 Canonical sunscreen object (dry run):");
     console.log(JSON.stringify(canonical, null, 2));
   } catch (err) {
     console.error("❌ Parsing failed:", err.message);
