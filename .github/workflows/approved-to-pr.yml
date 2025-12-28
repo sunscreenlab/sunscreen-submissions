@@ -16,12 +16,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
       - name: Log trigger info
         run: |
           echo "Issue #${{ github.event.issue.number }} labeled 'approved'"
           echo "Title: ${{ github.event.issue.title }}"
 
-      - name: Parse sunscreen 
+      - name: Parse sunscreen
         working-directory: .github/scripts
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
@@ -29,6 +34,12 @@ jobs:
           npm install
           node parse-sunscreen.js
 
+      # 👇 NEW STEP (log-only, safe)
+      - name: Generate sunscreen ID (log only)
+        run: node scripts/generateSunscreenEntry.js
+        env:
+          SUNSCREEN_BRAND: ${{ env.SUNSCREEN_BRAND }}
+          SUNSCREEN_PRODUCT: ${{ env.SUNSCREEN_PRODUCT }}
 
       - name: Post acknowledgement comment
         env:
