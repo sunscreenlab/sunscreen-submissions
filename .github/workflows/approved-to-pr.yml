@@ -63,3 +63,13 @@ jobs:
             -d '{
               "body": "Submission approved.\n\nThis sunscreen has been marked as approved.\nAutomation has detected the approval and will process it shortly.\n\n(Draft processing only — no data has been published yet.)"
             }'
+
+                  - name: Commit sunscreens.json
+        run: |
+          git config user.name "sunscreen-bot"
+          git config user.email "sunscreen-bot@users.noreply.github.com"
+          git status
+          git add sunscreens.json
+          git commit -m "Add sunscreen: $SUNSCREEN_ID"
+          git push
+
